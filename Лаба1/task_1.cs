@@ -21,6 +21,8 @@ namespace Лаба1
             bool isConvert;
 
             Console.WriteLine("Задание 1. Вычисление значений");
+            
+            // считывание чисел m и n
 
             do
             {
@@ -38,6 +40,8 @@ namespace Лаба1
                     Console.WriteLine("Ошибка, вы ввели не число n. Повторите ввод");
             } while (!isConvert);
 
+            // проверка возможности деления на n и вывод результатов первого выражения
+            
             if (n != 1)
             {
                 n -= 1;
@@ -46,6 +50,8 @@ namespace Лаба1
             }
             else { Console.WriteLine("Невозможно вычислить (m / --n++), деление на 0 невозможно"); };
 
+            // проверка возможности деления на n и вывод результатов второго выражения
+
             if (n != 0)
             {
                 bool res2 = m / n < n--;
@@ -53,10 +59,14 @@ namespace Лаба1
             }
             else { Console.WriteLine("Невозможно вычислить (m / n < n--), деление на 0 невозможно"); }
 
+            // вычисление и вывод значения третьего выражения
+
             bool res3 = m + n++ > n + m;
             Console.WriteLine($"Значение выражения: (m + n++ > n + m) равно {res3}. Значение m={m}, n={n}");
 
             double x;
+
+            // считывание переменной x
 
             do
             {
@@ -65,6 +75,8 @@ namespace Лаба1
                 if (!isConvert)
                     Console.WriteLine("Ошибка, вы ввели не число x. Повторите ввод");
             } while (!isConvert);
+
+            // вычисление и вывод значения четвертого выражения
 
             double res4 = Math.Pow(x, 5) * Math.Sqrt(Math.Abs(x - 1)) + Math.Abs(25 - Math.Pow(x, 5));
 
@@ -79,6 +91,8 @@ namespace Лаба1
             bool isConvert;
 
             Console.WriteLine("Задание 2. Определение положения точки");
+
+            // считывание координат (x y)
 
             do
             {
@@ -96,6 +110,8 @@ namespace Лаба1
                     Console.WriteLine("Введи координату y, вещественное число");
             } while (!isConvert);
 
+            // вычисление положения точки заданной области
+            
             bool res;
             
             res = ((y >= -1 / 7.0 * x - 1) & (x <= 0) & (y <= 0));
@@ -119,6 +135,7 @@ namespace Лаба1
             aDouble = 1000;
             bDouble = 0.0001;
 
+            // вычисление выражения в типе double 
 
             double bufDouble1 = (double)Math.Pow(aDouble + bDouble, 3);
 
@@ -136,7 +153,7 @@ namespace Лаба1
 
             double resDouble = bufDouble6 / bufDouble7;
 
-
+            // вычисление выражения в типе float 
 
             float aFloat = 1000;
             float bFloat = 0.0001f;
