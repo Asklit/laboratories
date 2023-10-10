@@ -118,12 +118,6 @@ namespace Лаба1
 
             return res;
 
-            /*if (res)
-            {
-                Console.WriteLine($"Точка ({x}, {y}) принадлежит заданной области.");
-            }
-            else { Console.WriteLine($"Точка ({x}, {y}) не лежит в заданной области."); };*/
-
         }
 
         static void ThirdTask()
@@ -137,19 +131,19 @@ namespace Лаба1
 
             // вычисление выражения в типе double 
 
-            double bufDouble1 = (double)Math.Pow(aDouble + bDouble, 3);
+            double bufDouble1 = Math.Pow(aDouble + bDouble, 3);
 
-            double bufDouble2 = (double)Math.Pow(aDouble, 3);
+            double bufDouble2 = Math.Pow(aDouble, 3);
 
-            double bufDouble3 = (double)Math.Pow(aDouble, 2);
+            double bufDouble3 = Math.Pow(aDouble, 2);
 
-            double bufDouble4 = (double)Math.Pow(bDouble, 2);
+            double bufDouble4 = Math.Pow(bDouble, 2);
 
-            double bufDouble5 = (double)Math.Pow(bDouble, 3);
+            double bufDouble5 = Math.Pow(bDouble, 3);
 
-            double bufDouble6 = (double)(bufDouble1 - (double)(bufDouble2 + (double)(3 * bufDouble3 * bDouble)));
+            double bufDouble6 = (bufDouble1 - (double)(bufDouble2 + (double)(3 * bufDouble3 * bDouble)));
 
-            double bufDouble7 = (double)((double)(3 * aDouble * bufDouble4) + bufDouble5);
+            double bufDouble7 = ((double)(3 * aDouble * bufDouble4) + bufDouble5);
 
             double resDouble = bufDouble6 / bufDouble7;
 
