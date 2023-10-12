@@ -52,8 +52,9 @@ namespace Лаба2
 
             // переменные для вычисления максимального числа из последовательности и их кол-ва
 
-            int number, maxNumber, countMax;
-            maxNumber = -1000000000;
+            int countMax;
+            long number;
+            long maxNumber = long.MinValue;
             countMax = 1;
 
             // последовательное считывание числа number
@@ -63,7 +64,7 @@ namespace Лаба2
                 Console.WriteLine($"Введи целое число. Уже введено {i} чисел из {n}.");
                 do
                 {
-                    isConvert = int.TryParse(Console.ReadLine(), out number);
+                    isConvert = long.TryParse(Console.ReadLine(), out number);
                     if (!isConvert)
                         Console.WriteLine("Ошибка. Нужно ввести целое число.");
                 } while (!isConvert);
@@ -96,9 +97,10 @@ namespace Лаба2
             // переменные для вычисления максимального числа из последовательности и их кол-ва
 
             bool isConvert, numberNotZero;
-            int number, maxNumber, countMax, index;
+            int index, countMax;
+            long number;
 
-            maxNumber = -1000000000;
+            long maxNumber = long.MinValue;
             countMax = 1;
             index = 0;
 
@@ -110,7 +112,7 @@ namespace Лаба2
 
                 do
                 {
-                    isConvert = int.TryParse(Console.ReadLine(), out number);
+                    isConvert = long.TryParse(Console.ReadLine(), out number);
                     if (!isConvert)
                         Console.WriteLine("Ошибка. Нужно ввести целое число.");
                 } while (!isConvert);
