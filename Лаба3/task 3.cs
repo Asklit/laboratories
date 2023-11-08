@@ -62,7 +62,7 @@ namespace Лаба1
 
                 // отступы для красивого вывода текста
 
-                string bufx, bufn, bufe, bufy, bufindex;
+                string bufx, bufn, bufe, bufy;
                 bufx = string.Join("", Enumerable.Repeat(" ", (20 - x.ToString().ToArray().Length)));
                 bufn = string.Join("", Enumerable.Repeat(" ", (20 - sn.ToString().ToArray().Length)));
                 bufe = string.Join("", Enumerable.Repeat(" ", (20 - se.ToString().ToArray().Length)));
