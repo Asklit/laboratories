@@ -11,7 +11,23 @@ namespace Лаба1
 
             // Красивый вывод текста в виде таблицы
 
+            
+
             Console.WriteLine(string.Join("", Enumerable.Repeat("_", 107)));
+
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 25)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 25)) + "|");
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 12)) + "X" + string.Join("", Enumerable.Repeat(" ", 12)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 12)) + "Sn" + string.Join("", Enumerable.Repeat(" ", 12)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 12)) + "Se" + string.Join("", Enumerable.Repeat(" ", 12)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 12)) + "Y" + string.Join("", Enumerable.Repeat(" ", 12)) + "|");
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat("_", 25)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 25)) + "|");
+
             Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 25)) + "|" +
                 string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
                 string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
@@ -46,7 +62,7 @@ namespace Лаба1
 
                 // отступы для красивого вывода текста
 
-                string bufx, bufn, bufe, bufy;
+                string bufx, bufn, bufe, bufy, bufindex;
                 bufx = string.Join("", Enumerable.Repeat(" ", (20 - x.ToString().ToArray().Length)));
                 bufn = string.Join("", Enumerable.Repeat(" ", (20 - sn.ToString().ToArray().Length)));
                 bufe = string.Join("", Enumerable.Repeat(" ", (20 - se.ToString().ToArray().Length)));
