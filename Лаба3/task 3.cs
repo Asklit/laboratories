@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
 namespace Лаба1
 {
@@ -7,7 +8,16 @@ namespace Лаба1
         static void Main(string[] args)
         {
             Console.WriteLine("Вариант 9");
+            Console.WriteLine(string.Join("", Enumerable.Repeat("_", 107)));
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 25)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 25)) + "|");
             FirstTask();
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat("_", 25)) + "|" + 
+                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 25)) + "|");
         }
 
         static void FirstTask()
@@ -33,12 +43,13 @@ namespace Лаба1
 
                 // отступы для красивого вывода
 
-                string bufx, bufn, bufe;
+                string bufx, bufn, bufe, bufy;
                 bufx = string.Join("", Enumerable.Repeat(" ", (20 - x.ToString().ToArray().Length)));
                 bufn = string.Join("", Enumerable.Repeat(" ", (20 - sn.ToString().ToArray().Length)));
                 bufe = string.Join("", Enumerable.Repeat(" ", (20 - se.ToString().ToArray().Length)));
+                bufy = string.Join("", Enumerable.Repeat(" ", (20 - y.ToString().ToArray().Length)));
 
-                Console.WriteLine($"X = {x}{bufx}| Sn = {sn}{bufn}| Se = {se}{bufe}| y = {y}");
+                Console.WriteLine($"| X = {x}{bufx}| Sn = {sn}{bufn}| Se = {se}{bufe}| y = {y}{bufy}|");
 
                 x += (xb - xa) / k;
             } while (x < xb);
