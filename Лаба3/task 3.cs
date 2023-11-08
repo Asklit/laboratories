@@ -8,6 +8,9 @@ namespace Лаба1
         static void Main(string[] args)
         {
             Console.WriteLine("Вариант 9");
+
+            // Красивый вывод текста в виде таблицы
+
             Console.WriteLine(string.Join("", Enumerable.Repeat("_", 107)));
             Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 25)) + "|" +
                 string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
@@ -41,7 +44,7 @@ namespace Лаба1
                 se = countSE(e, x);
                 y = countY(x);
 
-                // отступы для красивого вывода
+                // отступы для красивого вывода текста
 
                 string bufx, bufn, bufe, bufy;
                 bufx = string.Join("", Enumerable.Repeat(" ", (20 - x.ToString().ToArray().Length)));
@@ -62,7 +65,7 @@ namespace Лаба1
             double amount = x;
             double an = x;
 
-            for (int i = 1; i < n + 1; i++)
+            for (int i = 1; i < n; i++)
             {
                 an *= (x * x * x * x) / (double)(4 * n + 1);
                 amount += an;
