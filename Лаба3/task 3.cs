@@ -103,8 +103,8 @@ namespace Лаба1
 
             for (int i = 1; i < n + 1; i++)
             {
-                an *= (x * x * x * x) / (double)(4 * i + 1);
-                amount += an;
+                an *= (x * x * x * x);
+                amount += (an / (double)(4 * i + 1));
             }
             return amount;
         }
@@ -124,9 +124,9 @@ namespace Лаба1
 
             while (Math.Abs(an) > e)
             {
-                amount += an;
+                amount += (an / (double)(4 * n + 1));
                 n += 1;
-                an *= (x * x * x * x) / (double)(4 * n + 1);
+                an *= (x * x * x * x);
             };
             return amount;
         }
