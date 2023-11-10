@@ -8,6 +8,7 @@ namespace Лаба1
         /// <summary>
         /// main function
         /// </summary>
+        /// <param ="FirstTask">completing the first task</param>
         static void Main(string[] args)
         {
             FirstTask();
@@ -37,24 +38,28 @@ namespace Лаба1
 
             // automatic table formation
 
-            Console.WriteLine(string.Join("", Enumerable.Repeat("_", 107)));
-            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 25)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 25)) + "|");
-            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 12)) + "X" + string.Join("", Enumerable.Repeat(" ", 12)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 12)) + "Sn" + string.Join("", Enumerable.Repeat(" ", 12)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 12)) + "Se" + string.Join("", Enumerable.Repeat(" ", 12)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 12)) + "Y" + string.Join("", Enumerable.Repeat(" ", 12)) + "|");
-            Console.WriteLine("|" + string.Join("", Enumerable.Repeat("_", 25)) + "|" +
-                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
-                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
-                string.Join("", Enumerable.Repeat("_", 25)) + "|");
+            Console.WriteLine(string.Join("", Enumerable.Repeat("_", 86)));
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 13)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 14)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 14)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 16)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 23)) + "|");
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 6)) + "X" + string.Join("", Enumerable.Repeat(" ", 6)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 6)) + "Sn" + string.Join("", Enumerable.Repeat(" ", 6)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 6)) + "Se" + string.Join("", Enumerable.Repeat(" ", 6)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 6)) + "f(x)" + string.Join("", Enumerable.Repeat(" ", 6)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 4)) + "Delta(Sn, f(x))" + string.Join("", Enumerable.Repeat(" ", 4)) + "|");
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat("_", 13)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 14)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 14)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 16)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 23)) + "|");
 
-            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 25)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 26)) + "|" +
-                string.Join("", Enumerable.Repeat(" ", 25)) + "|");
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat(" ", 13)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 14)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 14)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 16)) + "|" +
+                string.Join("", Enumerable.Repeat(" ", 23)) + "|");
 
             // main cycle, selecting the value of x from xa to xb with step = (xb - xa) / k
             do
@@ -65,27 +70,27 @@ namespace Лаба1
                 se = countSE(e, x);
                 f = countY(x);
 
-                //  automatic table formation
+                string formatX = string.Format("{0:f5}", x);
+                string formatSN = string.Format("{0:f5}", sn);
+                string formatSE = string.Format("{0:f5}", se);
+                string formatF = string.Format("{0:f5}", f);
 
-                string bufx, bufn, bufe, bufy;
-                bufx = string.Join("", Enumerable.Repeat(" ", (20 - x.ToString().ToArray().Length)));
-                bufn = string.Join("", Enumerable.Repeat(" ", (20 - sn.ToString().ToArray().Length)));
-                bufe = string.Join("", Enumerable.Repeat(" ", (20 - se.ToString().ToArray().Length)));
-                bufy = string.Join("", Enumerable.Repeat(" ", (20 - f.ToString().ToArray().Length)));
+                string formatFSn = string.Format("{0:f5}", Math.Abs(f-sn));
 
                 //  data output in automatic table
 
-                Console.WriteLine($"| X = {x}{bufx}| Sn = {sn}{bufn}| Se = {se}{bufe}| y = {f}{bufy}|");
+                Console.WriteLine($"| x = {formatX} | Sn = {formatSN} | Se = {formatSE} | f(x) = {formatF} | d(f(x), Sn) = {formatFSn} |");
 
                 x += (xb - xa) / k;
             } while (x < xb);
 
             // automatic table formation
 
-            Console.WriteLine("|" + string.Join("", Enumerable.Repeat("_", 25)) + "|" +
-                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
-                string.Join("", Enumerable.Repeat("_", 26)) + "|" +
-                string.Join("", Enumerable.Repeat("_", 25)) + "|");
+            Console.WriteLine("|" + string.Join("", Enumerable.Repeat("_", 13)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 14)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 14)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 16)) + "|" +
+                string.Join("", Enumerable.Repeat("_", 23)) + "|");
 
         }
 
@@ -94,17 +99,17 @@ namespace Лаба1
         /// count amount Sn with a recurrent numerator for baced n
         /// </summary>
         /// <param ="amount">amount Sn</param>
-        /// <param ="an">the part of a numerical series</param>
+        /// <param ="recurent">the part of the function calculated recursively</param>
         /// <returns>total amount</returns>
         static double countSN(int n, double x)
         {
             double amount = x;
-            double an = x;
+            double recurent = x;
 
             for (int i = 1; i < n + 1; i++)
             {
-                an *= (x * x * x * x);
-                amount += (an / (double)(4 * i + 1));
+                recurent *= (x * x * x * x);
+                amount += (recurent / (4 * i + 1));
             }
             return amount;
         }
@@ -119,14 +124,14 @@ namespace Лаба1
         {
 
             double amount = 0;
-            double an = x;
+            double recurent = x;
             int n = 0;
 
-            while (Math.Abs(an) > e)
+            while (Math.Abs(recurent) > e)
             {
-                amount += (an / (double)(4 * n + 1));
+                amount += (recurent / (4 * n + 1));
                 n += 1;
-                an *= (x * x * x * x);
+                recurent *= (x * x * x * x);
             };
             return amount;
         }
