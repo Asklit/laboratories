@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.Intrinsics.Arm;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Лаба1
 {
@@ -43,12 +45,8 @@ namespace Лаба1
                         }
                     case 3 when flag:
                         {
-                            Console.WriteLine("Вывод элементов массива в строку через пробел:");
-                            for (int i = 0; i < arr.Length; i++)
-                            {
-                                Console.Write(arr[i] + " ");
-                            }
-                            Console.WriteLine();
+                            Console.WriteLine("Вывод элементов массива в строку через пробел: ");
+                            PrintArray(arr);
                             break;
                         };
                     case 4 when flag:
@@ -78,11 +76,20 @@ namespace Лаба1
                         }
                     case 9 when flag:
                         {
+                            arr = (int[])SlowSort(arr);
+                            SearchElem(arr);
+                            break;
+                        }
+                    case 10 when flag:
+                        {
                             Console.WriteLine("Завершение работы.");
                             isWork = false;
                             break;
                         }
 
+                }
+                if (!isWork) {
+                    break;
                 }
 
                 flag = true;
@@ -97,10 +104,11 @@ namespace Лаба1
                 Console.WriteLine("6. Сдвинуть циклически на указаное количество элементов вправо.");
                 Console.WriteLine("7. Поиск первого четного элемента массива.");
                 Console.WriteLine("8. Медленная сортировка массива.");
-                Console.WriteLine("9. Выход");
+                Console.WriteLine("9. Сортировка массива и бинарный поиск элемента.");
+                Console.WriteLine("10. Выход");
                 Console.WriteLine();
 
-                number = GetInt(1, 9, "Число не пренадлежит списку. Введите номер пункта еще раз.");
+                number = GetInt(1, 10, "Число не пренадлежит списку. Введите номер пункта еще раз.");
             }
 
         }
@@ -163,13 +171,24 @@ namespace Лаба1
             {
                 Console.WriteLine($"Введите число для формирования массива. Осталось ввести {lenght - i}");
                 number = GetInt(int.MinValue, int.MaxValue, "");
+                arr[i] = number;
             }
             return arr;
         }
 
+        static void PrintArray(int[] arr)
+        {
+            
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i] + " ");
+            }
+            Console.WriteLine();
+        }
+
         static Array DeliteItems(int[] arr)
         {
-            int amount = 0;
+            long amount = 0;
 
             foreach (int item in arr)
             {
@@ -177,10 +196,10 @@ namespace Лаба1
             }
 
             int count = 0;
-
+            long avg = amount / arr.Length;
             foreach (int item in arr)
             {
-                if ((amount / (double)arr.Length) <= item)
+                if (avg <= item)
                 {
                     count += 1;
                 }
@@ -191,13 +210,13 @@ namespace Лаба1
 
             foreach (int item in arr)
             {
-                if ((amount / (double)arr.Length) <= item)
+                if (avg <= item)
                 {
                     newArr[index] = item;
                     index++;
                 }
             }
-            Console.WriteLine($"Удалены все элементы, большие {amount / (double)arr.Length}");
+            Console.WriteLine($"Удалены все элементы, большие {avg}");
 
             return newArr;
         }
@@ -206,8 +225,8 @@ namespace Лаба1
         {
             int k;
 
-            k = GetInt(1, int.MaxValue, "Количество элементов должно быть натуральным числом. Повторите ввод еще раз.");
             Console.WriteLine("Введите количество элементов, которое хотите добавить в массив.");
+            k = GetInt(1, int.MaxValue, "Количество элементов должно быть натуральным числом. Повторите ввод еще раз.");
 
             int[] newArr = new int[k + arr.Length];
 
@@ -280,6 +299,7 @@ namespace Лаба1
         
         static Array SlowSort(int[] arr)
         {
+            
             int j, item;
             for (int i = 1; i < arr.Length; i++)
             {
@@ -292,8 +312,49 @@ namespace Лаба1
                 }
                 arr[j + 1] = item;
             }
-
+            
             return arr;
         }
+
+        static void SearchElem(int[] arr)
+        {
+            Console.WriteLine("Введите элемент, который хотите найти.");
+            int item = GetInt(int.MinValue, int.MaxValue, "");
+            int index = BinSearch(arr, item, 0, arr.Length - 1);
+            if (index != -1)
+            {
+                Console.WriteLine($"Элемент {item} стоит под индексом {index} в отсортированном массиве:");
+                PrintArray(arr);
+            }
+            else
+            {
+                Console.WriteLine($"Элемент {item} не найден в массиве.");
+            }
+        }
+
+        static int BinSearch(int[] arr, int item, int left, int right)
+        {
+            int count = 0;
+            while (left <= right)
+            {
+                int mid = (left + right) / 2;
+                count++;
+                if (item == arr[mid])
+                {
+                    Console.WriteLine($"Количество проведенных интераций {count}.");
+                    return ++mid;
+                }
+                else if (item < arr[mid])
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+            Console.WriteLine($"Количество проведенных интераций {count}.");
+            return -1;
+        }   
     }
 }
