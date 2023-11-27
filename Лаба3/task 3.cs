@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Лаба1
+namespace labs
 {
     internal class task3
     {

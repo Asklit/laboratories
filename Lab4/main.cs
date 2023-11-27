@@ -6,7 +6,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Лаба1
+namespace labs
 {
     internal class task
     {
