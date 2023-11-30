@@ -120,6 +120,13 @@ namespace labs
                     case 10 when extendMenu:
                         {
                             Console.Clear();
+                            QuickSort(arr, 0, arr.Length - 1);
+                            Console.WriteLine("Массив отсортирован.");
+                            break;
+                        }
+                    case 11 when extendMenu:
+                        {
+                            Console.Clear();
                             Console.WriteLine("Завершение работы.");
                             isWorking = false;
                             break;
@@ -133,7 +140,7 @@ namespace labs
                 extendMenu = true;
 
                 // Вывод меню
-                Console.WriteLine("");
+                Console.WriteLine();
                 Console.WriteLine("Введите номер того пунка, который хотите выполнить.");
                 Console.WriteLine("1. Сформировать массив из случайных чисел заданной длины.");
                 Console.WriteLine("2. Сформировать массив из входных данных заданной длины.");
@@ -144,10 +151,11 @@ namespace labs
                 Console.WriteLine("7. Поиск первого четного элемента массива.");
                 Console.WriteLine("8. Медленная сортировка массива.");
                 Console.WriteLine("9. Сортировка массива и бинарный поиск элемента.");
-                Console.WriteLine("10. Выход");
+                Console.WriteLine("10. Быстрая сортировка.");
+                Console.WriteLine("11. Выход");
                 Console.WriteLine();
 
-                number = GetInt(1, 10, "Число не пренадлежит списку. Введите номер пункта еще раз.");
+                number = GetInt(1, 11, "Число не пренадлежит списку. Введите номер пункта еще раз.");
             }
 
         }
@@ -441,6 +449,34 @@ namespace labs
             }
             Console.WriteLine($"Количество проведенных интераций {count}.");
             return -1;
-        }   
+        }
+
+        public static void QuickSort(int[] arr, int left, int right)
+        {
+            if (left < right)
+            {
+                int pivot = Partition(arr, left, right);
+
+                QuickSort(arr, left, pivot - 1);
+                QuickSort(arr, pivot + 1, right);
+            }
+        }
+
+        static int Partition(int[] arr, int left, int right)
+        {
+            int i = left - 1;
+
+            for (int j = left; j < right; j++)
+            {
+                if (arr[j] <= arr[right])
+                {
+                    i++;
+                    (arr[j], arr[i]) = (arr[i], arr[j]);
+                }
+            }
+
+            (arr[right], arr[i + 1]) = (arr[i + 1], arr[right]);
+            return i + 1;
+        }
     }
 }
