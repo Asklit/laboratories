@@ -5,10 +5,17 @@ namespace lab
 {
     internal class Lab5
     {
+        /// <summary>
+        /// Основа программы
+        /// </summary>
+        /// <params name=oneDimensionalArray>Одномерный массив</params>
+        /// <params name=twoDimensionalArray>Двумерный массив</params>
+        /// <params name=unknownDimensionalArray>Рваный массив</params>
+        /// <params name=currentMenu>Текущее меню</params> 
         static void Main()
         {
             int currentMenu = 0;
-
+            // Создание массивов
             int[] oneDimensionalArray = Array.Empty<int>();
             int[,] twoDimensionalArray = new int[0,0];
             int[][] unknownDimensionalArray = new int[0][]; 
@@ -17,17 +24,17 @@ namespace lab
 
             do
             {
-                PrintMenu(currentMenu);
+                PrintMenu(currentMenu); // Вывод меню
                 numArray = GetInt(1, 4, "Число не пренадлежит списку. Введите номер пункта еще раз.");
 
                 switch (numArray)
                 {
                     case 1:
                         {
-                            currentMenu = 1;
+                            currentMenu = 1; // Смена меню
                             int numPoint;
 
-                            Console.Clear();
+                            Console.Clear(); // Отчистка консоли
                             do
                             {
                                 PrintMenu(currentMenu);
@@ -37,10 +44,10 @@ namespace lab
                                 {
                                     case 1:
                                         {
-                                            currentMenu = 11;
+                                            currentMenu = 11; // Смена меню
                                             int numGenerate;
 
-                                            Console.Clear();
+                                            Console.Clear(); // Отчистка консоли
                                             PrintMenu(currentMenu);
                                             numGenerate = GetInt(1, 3, "Число не пренадлежит списку. Введите номер пункта еще раз.");
 
@@ -48,9 +55,11 @@ namespace lab
                                             {
                                                 case 1:
                                                     {
+                                                        // Создание и заполнение массива вводимой длины
                                                         GetLengthArray(out int length);
-                                                        oneDimensionalArray = FillRandomArray(length);
-                                                        
+                                                        oneDimensionalArray = new int[length];
+                                                        FillRandomArray(ref oneDimensionalArray);
+                                                        // Вывод логов в консоль
                                                         Console.Clear();
                                                         Console.WriteLine("Сформирован массив из рандомных чисел.");
                                                         Console.WriteLine();
@@ -58,10 +67,11 @@ namespace lab
                                                     }
                                                 case 2:
                                                     {
+                                                        // Создание и заполнение массива вводимой длины
                                                         GetLengthArray(out int length);
                                                         oneDimensionalArray = new int[length];
-
                                                         FillArray(ref oneDimensionalArray);
+                                                        // Вывод логов в консоль
                                                         Console.Clear();
                                                         Console.WriteLine("Сформирован массив из введенных чисел.");
                                                         Console.WriteLine();
@@ -78,15 +88,16 @@ namespace lab
                                         }
                                     case 2:
                                         {
-                                            if (CheckEmpty(oneDimensionalArray))
+                                            if (CheckEmpty(oneDimensionalArray)) // Проверка на пустой массив
                                             {
-                                                Console.Clear();
+                                                Console.Clear(); // Вывод логов в консоль
                                                 Console.WriteLine("Массив пустой.");
                                                 Console.WriteLine();
                                             }
                                             else
                                             {
-                                                Console.Clear();
+                                                // Печать массива
+                                                Console.Clear(); // Вывод логов в консоль
                                                 Console.WriteLine("Печать одномерного массива:");
                                                 PrintArray(currentMenu, oneDimensionalArray, twoDimensionalArray, unknownDimensionalArray);
                                                 Console.WriteLine();
@@ -95,17 +106,17 @@ namespace lab
                                         }
                                     case 3:
                                         {
-                                            if (CheckEmpty(oneDimensionalArray))
+                                            if (CheckEmpty(oneDimensionalArray))  // Проверка на пустой массив
                                             {
-                                                Console.Clear();
+                                                Console.Clear(); // Вывод логов в консоль
                                                 Console.WriteLine("Массив пустой.");
                                                 Console.WriteLine();
                                             }
                                             else
                                             {
-                                                oneDimensionalArray = DeliteOddItems(oneDimensionalArray);
+                                                oneDimensionalArray = DeliteOddItems(oneDimensionalArray); // Удаление нечетных чисел
 
-                                                Console.Clear();
+                                                Console.Clear(); // Вывод логов в консоль
                                                 Console.WriteLine("Удалены все нечетные элементы.");
                                                 Console.WriteLine();
                                             }
@@ -148,10 +159,10 @@ namespace lab
                                             {
                                                 case 1:
                                                     {
-                                                        GetLengthArray(out int str, out int col);
+                                                        GetLengthArray(out int str, out int col); // Создание и заполнение массива вводимой длины
                                                         twoDimensionalArray = new int[str, col];
-
                                                         FillRandomArray(ref twoDimensionalArray);
+                                                        
                                                         Console.Clear();
                                                         Console.WriteLine("Сформирован двумерный массив из рандомных чисел.");
                                                         Console.WriteLine();
@@ -159,10 +170,10 @@ namespace lab
                                                     }
                                                 case 2:
                                                     {
-                                                        GetLengthArray(out int str, out int col);
+                                                        GetLengthArray(out int str, out int col); // Создание и заполнение массива вводимой длины
                                                         twoDimensionalArray = new int[str, col];
-
                                                         FillArray(ref twoDimensionalArray);
+                                                        
                                                         Console.Clear();
                                                         Console.WriteLine("Сформирован двумерный массив из введенных чисел.");
                                                         Console.WriteLine();
@@ -179,7 +190,7 @@ namespace lab
                                         }
                                     case 2:
                                         {
-                                            if (CheckEmpty(twoDimensionalArray))
+                                            if (CheckEmpty(twoDimensionalArray)) // Проверка на пустой массив
                                             {
                                                 Console.Clear();
                                                 Console.WriteLine("Массив пустой.");
@@ -206,13 +217,13 @@ namespace lab
                                             {
                                                 case 1:
                                                     {
-                                                        if (twoDimensionalArray.Length >= 10000)
+                                                        if (twoDimensionalArray.Length >= 10000) // Проверка на переполнение массива
                                                         {
                                                             Console.WriteLine("Достигнуто максимальное количество строк в массиве.");
                                                             break;
                                                         }
                                                         int[,] buf;
-                                                        if (twoDimensionalArray.GetLength(1) != 0)
+                                                        if (twoDimensionalArray.GetLength(1) != 0) // Проверка на пустой массив
                                                         {
 
                                                             GetLengthNewArray(out int k, twoDimensionalArray.Length);
@@ -224,24 +235,34 @@ namespace lab
                                                             buf = new int[k, col];
                                                         }
                                                         FillRandomArray(ref buf);
-                                                        twoDimensionalArray = AddRows(twoDimensionalArray, buf);
+                                                        twoDimensionalArray = AddRows(twoDimensionalArray, buf); // Добавление строк в массив
 
-                                                        // Console.Clear();
+                                                        Console.Clear();
                                                         Console.WriteLine("Добавлены новые строки в массив.");
                                                         Console.WriteLine();
                                                         break;
                                                     }
                                                 case 2:
                                                     {
-                                                        if (twoDimensionalArray.Length >= 10000)
+                                                        if (twoDimensionalArray.Length >= 10000) // Проверка на переполнение массива
                                                         {
                                                             Console.WriteLine("Достигнуто максимальное количество строк в массиве.");
                                                             break;
                                                         }
-                                                        GetLengthNewArray(out int k, twoDimensionalArray.Length);
-                                                        int[,] buf = new int[k, twoDimensionalArray.GetLength(1)];
+                                                        int[,] buf;
+                                                        if (twoDimensionalArray.GetLength(1) != 0) // Проверка на пустой массив
+                                                        {
+
+                                                            GetLengthNewArray(out int k, twoDimensionalArray.Length);
+                                                            buf = new int[k, twoDimensionalArray.GetLength(1)];
+                                                        }
+                                                        else
+                                                        {
+                                                            GetLengthArray(out int k, out int col);
+                                                            buf = new int[k, col];
+                                                        }
                                                         FillArray(ref buf);
-                                                        twoDimensionalArray = AddRows(twoDimensionalArray, buf);
+                                                        twoDimensionalArray = AddRows(twoDimensionalArray, buf); // Добавление строк в массив
 
                                                         Console.Clear();
                                                         Console.WriteLine("Добавлены новые строки в массив.");
@@ -294,11 +315,11 @@ namespace lab
                                             {
                                                 case 1:
                                                     {
-                                                        
+                                                        // Создание и заполнение массива
                                                         GetLengthArray(out int str, out int[] cols);
                                                         unknownDimensionalArray = new int[str][];
-
                                                         FillRandomArray(ref unknownDimensionalArray, cols);
+                                                        
                                                         Console.Clear();
                                                         Console.WriteLine("Сформирован рваный массив из рандомных чисел.");
                                                         Console.WriteLine();
@@ -306,10 +327,11 @@ namespace lab
                                                     }
                                                 case 2:
                                                     {
+                                                        // Создание и заполнение массива
                                                         GetLengthArray(out int str, out int[] cols);
                                                         unknownDimensionalArray = new int[str][];
-
                                                         FillArray(ref unknownDimensionalArray, cols);
+                                                        
                                                         Console.Clear();
                                                         Console.WriteLine("Сформирован рваный массив из рандомных чисел.");
                                                         Console.WriteLine();
@@ -326,7 +348,7 @@ namespace lab
                                         }
                                     case 2:
                                         {
-                                            if (CheckEmpty(unknownDimensionalArray))
+                                            if (CheckEmpty(unknownDimensionalArray)) // Проверка на пустой массив
                                             {
                                                 Console.Clear();
                                                 Console.WriteLine("Массив пустой.");
@@ -343,7 +365,7 @@ namespace lab
                                         }
                                     case 3:
                                         {
-                                            if (CheckEmpty(unknownDimensionalArray))
+                                            if (CheckEmpty(unknownDimensionalArray)) // Проверка на пустой массив
                                             {
                                                 Console.Clear();
                                                 Console.WriteLine("Массив пустой.");
@@ -351,6 +373,7 @@ namespace lab
                                             }
                                             else
                                             {
+                                                // Удаление строки в массиве
                                                 Console.Clear();
                                                 Console.WriteLine("Введите номер строки для удаления.");
                                                 int k = GetInt(1, unknownDimensionalArray.GetLength(0), $"Номер строки может быть от {1} до {unknownDimensionalArray.GetLength(0)}. Введите номер пункта еще раз.");
@@ -413,6 +436,10 @@ namespace lab
             return number;
         }
 
+        /// <summary>
+        /// Ввод длины массива
+        /// </summary>
+        /// <param name="length">Длина массива</param>
         static void GetLengthArray(out int length)
         {
             Console.Clear();
@@ -420,6 +447,11 @@ namespace lab
             length = GetInt(1, 1000000, $"Длина массива может быть от {1} до {1000000}. Введите номер пункта еще раз.");
         }
 
+        /// <summary>
+        /// Ввод количества строк и столбцов
+        /// </summary>
+        /// <param name="str">количество строк</param>
+        /// <param name="col">количество столбцов</param>
         static void GetLengthArray(out int str, out int col)
         {
             Console.Clear();
@@ -430,6 +462,12 @@ namespace lab
             col = GetInt(1, 10000, $"Количетсво столбцов может быть от {1} до {10000}. Введите номер пункта еще раз.");
         }
 
+        /// <summary>
+        /// Ввод количества строк и столбцов
+        /// </summary>
+        /// <param name="str">количество строк</param>
+        /// <param name="col">количество столбцов</param>
+        /// <param name="cols">Массив количества столбцов в каждой строке</param>
         static void GetLengthArray(out int str, out int[] cols)
         {
             Console.Clear();
@@ -444,27 +482,51 @@ namespace lab
             }
         }
 
+        /// <summary>
+        /// Ввод длины массива
+        /// </summary>
+        /// <param name="k">Количество строк</param>
+        /// <param name="length">Количество строк в массиве</param>
         static void GetLengthNewArray(out int k, int length)
         {
             Console.WriteLine("Введите количество строк для добавления в массив.");
             k = GetInt(1, 10000 - length, $"Количетсво строк может быть от {1} до {10000 - length}. Введите номер пункта еще раз.");
         }
 
+        /// <summary>
+        /// Проверка на пустой массив
+        /// </summary>
+        /// <param name="arr">Массив</param>
+        /// <returns>True/False Длина массива равна нулю</returns>
         static bool CheckEmpty(int[] arr)
         {
             return arr.Length == 0;
         }
 
+        /// <summary>
+        /// Проверка на пустой массив
+        /// </summary>
+        /// <param name="arr">Массив</param>
+        /// <returns>True/False Длина массива равна нулю</returns>
         static bool CheckEmpty(int[,] arr)
         {
             return arr.Length == 0;
         }
 
+        /// <summary>
+        /// Проверка на пустой массив
+        /// </summary>
+        /// <param name="arr">Массив</param>
+        /// <returns>True/False Длина массива равна нулю</returns>
         static bool CheckEmpty(int[][] arr)
         {
             return arr.Length == 0;
         }
 
+        /// <summary>
+        /// Вывод меню в консоль
+        /// </summary>
+        /// <param name="numberMenu">Текущее меню</param>
         static void PrintMenu(int numberMenu)
         {
             Console.WriteLine("Выберите пункт меню из списка:");
@@ -535,24 +597,24 @@ namespace lab
         }
 
         /// <summary>
-        /// Создание массива из случайных чисел
+        /// Заполнение одномерного массива рандомными числами
         /// </summary>
-        /// <param name="lenght">Длина массива</param>
-        /// <param name="arr">Массив чисел</param>
-        /// <param name="rand">Объект класса random</param>
-        static int[] FillRandomArray(int length)
+        /// <param name="arr">Массив</param>
+        static void FillRandomArray(ref int[] arr)
         {
             var rand = new Random();
-            int[] arr = new int[length];
 
             // Формирование массива из рандомных элементов
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 arr[i] = rand.Next(-100, 100);
             };
-            return arr;
         }
 
+        /// <summary>
+        /// Заполнение двумерного массива рандомными числами
+        /// </summary>
+        /// <param name="arr">Массив</param>
         static void FillRandomArray(ref int[,] arr)
         {
             var rand = new Random();
@@ -566,6 +628,12 @@ namespace lab
                 }
             }
         }
+
+        /// <summary>
+        /// Заполнение рваного массива рандомными числами
+        /// </summary>
+        /// <param name="arr">Массив</param>
+        /// <param name="lens">Длины строк</param>
         static void FillRandomArray(ref int[][] arr, params int[] lens)
         {
             var rand = new Random();
@@ -586,7 +654,7 @@ namespace lab
         /// </summary>
         /// <param name="number">Число массива</param>
         /// <param name="lenght">Длина массива</param>
-        /// <param name="arr">Массив чисел</param>
+        /// <param name="arr">Одномерный массив чисел</param>
         static void FillArray(ref int[] arr)
         {
             // Формирование массива из введенных значений
@@ -598,6 +666,10 @@ namespace lab
             }
         }
 
+        /// <summary>
+        /// Создание массива из вводимых значений
+        /// </summary>
+        /// <param name="arr">Двумерный массив чисел</param>
         static void FillArray(ref int[,] arr)
         {
             // Формирование массива из введенных значений
@@ -613,6 +685,11 @@ namespace lab
             }
         }
 
+        /// <summary>
+        /// Создание массива из вводимых значений
+        /// </summary>
+        /// <param name="arr">Рваный массив чисел</param>
+        /// <param name="lens">длины строк массива</param>
         static void FillArray(ref int[][] arr, params int[] lens)
         {
             // Формирование массива из введенных значений
@@ -627,44 +704,63 @@ namespace lab
             }
         }
 
+        /// <summary>
+        /// Поиск максимальных длин элементов для красивого отображения
+        /// </summary>
+        /// <param name="arr">Двумерный массив чисел</param>
+        /// <returns>Массив полученный длин</returns>
         static int[] MaxIndexes(int [,] arr)
         {
             int[] indexs = new int[arr.GetLength(1)];
-            for (int i = 0; i < arr.GetLength(1); i++)
+            for (int i = 0; i < arr.GetLength(1); i++) // Заполнение массива минимальными значениями
                 indexs[i] = 0;
+            // Поиск максимальной длины числа в каждом столбце
             for (int i = 0; i < arr.GetLength(0); i++)
             {
                 for (int j = 0; j < arr.GetLength(1); j++)
                 {
-                    if (arr[i, j].ToString().Length > indexs[j])
-                        indexs[j] = arr[i, j].ToString().Length;
+                    if (arr[i, j].ToString().Length > indexs[j]) 
+                        indexs[j] = arr[i, j].ToString().Length; // Перезапись максимального значения
                 }
             }
             return indexs;
         }
 
+        /// <summary>
+        /// Поиск максимальных длин элементов для красивого отображения
+        /// </summary>
+        /// <param name="arr">Рваный массив чисел</param>
+        /// <returns>Массив полученный длин</returns>
         static int[] MaxIndexes(int[][] arr)
         {
             int maxValue = 0;
-            foreach (int[] items in arr)
+            foreach (int[] items in arr) // Поиск максимальной длины подмассива
             {
                 maxValue = Math.Max(maxValue, items.Length);
             }
             
             int[] indexs = new int[maxValue];
-            for (int i = 0; i < maxValue; i++)
+            for (int i = 0; i < maxValue; i++) // Заполнение массива минимальными значениями
                 indexs[i] = 0;
+            // Поиск максимальной длины числа в каждом столбце
             for (int i = 0; i < arr.GetLength(0); i++)
             {
                 for (int j = 0; j < arr[i].Length; j++)
                 {
                     if (arr[i][j].ToString().Length > indexs[j])
-                        indexs[j] = arr[i][j].ToString().Length;
+                        indexs[j] = arr[i][j].ToString().Length; // Перезапись максимального значения
                 }
             }
             return indexs;
         }
 
+        /// <summary>
+        /// Вывод массива
+        /// </summary>
+        /// <param name="currentMenu">Пункт меню</param>
+        /// <param name="oneDimensionalArray">Одномерный массив</param>
+        /// <param name="twoDimensionalArray">Двумерный массив</param>
+        /// <param name="unknownDimensionalArray">Рваный массив</param>
         static void PrintArray(int currentMenu, int[] oneDimensionalArray, int[,] twoDimensionalArray, int[][] unknownDimensionalArray)
         {
             switch (currentMenu)
@@ -704,11 +800,16 @@ namespace lab
                     }
             }
         }
-    
+        
+        /// <summary>
+        /// Удаление нечетных элементов в массиве
+        /// </summary>
+        /// <param name="arr">Одномерный массив чисел</param>
+        /// <returns>Новый массив</returns>
         static int[] DeliteOddItems(int[] arr)
         {
             int count = 0;
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++) // Поиск количества четных элементов в массиве
             {
                 if (arr[i] % 2 == 0)
                     count++;
@@ -716,9 +817,9 @@ namespace lab
 
             int[] newArr = new int[count];
             int index = 0;
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++) // Заполнение нового массива из четных элементов
             {
-                if (arr[i] % 2 == 0)
+                if (arr[i] % 2 == 0) // Проверка на четность
                 {
                     newArr[index] = arr[i];
                     index++;
@@ -727,16 +828,22 @@ namespace lab
             return newArr;
         }
 
+        /// <summary>
+        /// Добавление строк в начало массива
+        /// </summary>
+        /// <param name="arr">Двумерный массив</param>
+        /// <param name="rows">Массив добавляемых строк</param>
+        /// <returns></returns>
         static int[,] AddRows(int[,] arr, int[,] rows)
         {
             int[,] newArr = new int[arr.GetLength(0) + rows.GetLength(0), Math.Max(arr.GetLength(1), rows.GetLength(1))];
-            for (int i = 0; i < rows.GetLength(0); i++)
+            for (int i = 0; i < rows.GetLength(0); i++) // Заполнение нового массива введенными значениями
             {
                 for (int j = 0; j < rows.GetLength(1); j++)
                     newArr[i, j] = rows[i, j];
             }
             
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < arr.GetLength(0); i++) // Добавление в массив значение из исходного массива
             {
                 for (int j = 0; j < arr.GetLength(1); j++)
                     newArr[i + rows.GetLength(0), j] = arr[i, j];
@@ -744,11 +851,17 @@ namespace lab
             return newArr;
         }
 
+        /// <summary>
+        /// Удаление строки из массива
+        /// </summary>
+        /// <param name="arr">Рваный массив чисел</param>
+        /// <param name="k">Номер удаляемой строки</param>
+        /// <returns>Новый массив</returns>
         static int[][] DeliteRow(int[][] arr, int k)
         {
             int[][] newArr = new int[arr.GetLength(0) - 1][];
             int index = 0;
-
+            // Добавление в новый массив всех строк кроме k
             for (int i = 0; i < arr.GetLength(0); i++)
             {
                 if (i != (k - 1))
