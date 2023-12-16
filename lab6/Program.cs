@@ -1,14 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.RegularExpressions;
+
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace lab
 {
     internal class Lab5
     {
-        private const string Path = "F:\\data\\projects\\VSprojects\\labs\\laboratories\\lab6\\data.txt";
+        private const string Path = "..\\..\\..\\data.txt";
 
+        /// <summary>
+        /// Основая функция
+        /// </summary>
+        /// <param name="number">Номер меню </param>
+        /// <param name="str">Строка предложений</param>
         static void Main()
         {
             int number;
@@ -28,7 +34,9 @@ namespace lab
                             {
                                 Console.WriteLine("Введите предложения:");
                                 str = "" + Console.ReadLine();
-                                if (stringIsCorrect(str))
+                                str = str.Replace("\t", " ");
+                                str = str.Replace("\\t", " ");
+                                if (StringIsCorrect(str))
                                 {
                                     str = FormatString(str);
                                     isCorrect = true;
@@ -38,6 +46,7 @@ namespace lab
                                     Console.WriteLine("Некорректный ввод. Введите ликвидные предложения.");
                                 }
                             } while (!isCorrect);
+                            Console.Clear();
                             break;
                         }
                     case 2:
@@ -50,14 +59,14 @@ namespace lab
                                 var logList = new List<string>(logFile);
                                 str = logList[index: rand.Next(1, logList.Count - 1)];
                                 str = FormatString(str);
+                                Console.Clear();
+                                Console.WriteLine("Сформирована рандомные предложения.");
                             }
                             catch (IOException e)
                             {
                                 Console.WriteLine("Этот файл не может быть считан:");
                                 Console.WriteLine(e.Message);
                             }
-                            Console.Clear();
-                            Console.WriteLine("Сформирована рандомные предложения.");
                             break;
                         }
                     case 3:
@@ -136,9 +145,15 @@ namespace lab
             return number;
         }
 
+        /// <summary>
+        /// Поиск символов в строке
+        /// </summary>
+        /// <param name="str">Строка предложений</param>
+        /// <param name="index">Индекс символа</param>
+        /// <returns>Индекс символа</returns>
         static int FindSeparator(string str, int index)
         {
-            bool IsSeparator(char letter)
+            static bool IsSeparator(char letter)
             {
                 char[] separators = { ' ', ';', '.', '-', '!', '?', ',', ':' };
                 foreach (char sep in separators)
@@ -149,7 +164,7 @@ namespace lab
                 return false;
             }
 
-            for ( int i = index + 1; i < str.Length; i++ )
+            for (int i = index + 1; i < str.Length; i++)
             {
                 if (IsSeparator(str[i]))
                     return i;
@@ -157,41 +172,57 @@ namespace lab
             return -1;
         }
 
+        /// <summary>
+        /// Переворот слов в строке
+        /// </summary>
+        /// <param name="str">Строка для переворота слов</param>
         static void ReverseWords(ref string str)
         {
-            int left = 0, right = 0;
+            int left = 0;
             int number = 1;
 
             do
             {
-                
-                right = FindSeparator(str, left);
+
+                int right = FindSeparator(str, left);
                 if (right == -1)
                     break;
                 if (number == str[left..right].Length - 1)
                 {
-                    str = string.Concat(str.AsSpan()[0..(left + 1)], Reverse(str[(left+1)..right]), str.AsSpan()[right..str.Length]);
+                    str = string.Concat(str.AsSpan()[0..(left + 1)], Reverse(str[(left + 1)..right]), str.AsSpan()[right..str.Length]);
                 }
-                
+
                 left = right;
 
                 if (str[right] == '.' | str[right] == '!' | str[right] == '?')
                     number = 0;
                 else if (str[right] == ' ')
-                    number ++;
+                    number++;
             } while (left < str.Length - 1);
         }
 
-        static string Reverse(string str)
+        /// <summary>
+        /// Переворот слова
+        /// </summary>
+        /// <param name="word">Слово для переворота</param>
+        /// <returns>Перевернутое слово</returns>
+        static string Reverse(string word)
         {
-            char[] charArray = str.ToCharArray();
+            char[] charArray = word.ToCharArray();
             Array.Reverse(charArray);
             return new string(charArray);
         }
 
+        /// <summary>
+        /// Форматирование строки
+        /// </summary>
+        /// <param name="str">Строка для форматирования</param>
+        /// <returns>Отформатированная строка</returns>
         static string FormatString(string str)
         {
+            str = str.Replace("\t", " ");
             string[] s = str.Split(' ');
+
             Regex regexWordPattern = new(@"[^ ]+");
             Regex regexSimbolPattern = new(@"[.,!?;']");
             List<string> buf = new();
@@ -199,48 +230,75 @@ namespace lab
 
             foreach (string item in s)
             {
-                if (regexSimbolPattern.IsMatch(item) && buf.Count > 0)
+                if (item.Length == 1)
+
                 {
-                    buf.Insert(index: index, buf[index - 1] + item);
-                    index++;
+                    if (regexSimbolPattern.IsMatch(item[0].ToString()) && buf.Count > 0)
+                    {
+                        buf.Insert(index: index - 1, buf[index - 1] + item[0]);
+                        buf.RemoveAt(index);
+                    }
+                    else if (regexWordPattern.IsMatch(item))
+                    {
+                        buf.Add(item);
+                        index++;
+                    }
                 }
-                else if (regexWordPattern.IsMatch(item))
+                else if (item.Length > 1 && item != "\t")
                 {
-                    buf.Add(item);
-                    index++;
+                    if (regexSimbolPattern.IsMatch(item[0].ToString()) && buf.Count > 0)
+                    {
+                        buf.Insert(index: index - 1, buf[index - 1] + item[0]);
+                        buf.RemoveAt(index);
+
+                        if (regexWordPattern.IsMatch(item[1..]))
+                        {
+                            buf.Add(item[1..]);
+                            index++;
+                        }
+                    }
+                    else if (regexWordPattern.IsMatch(item))
+                    {
+                        buf.Add(item);
+                        index++;
+                    }
                 }
+
+
             }
             string newString = string.Join(" ", buf.ToArray());
             return newString;
         }
 
-        static bool stringIsCorrect(string str)
+        /// <summary>
+        /// Проверка на корректность введенной строки
+        /// </summary>
+        /// <param name="str">Строка текста</param>
+        /// <returns>true/false строка корректна или нет</returns>
+        static bool StringIsCorrect(string str)
         {
             Regex regexWordPattern = new(@"[!?',.:;]?[а-яА-ЯёЁa-zA-Z]+[!?',.:;]?");
             Regex regexNumbersPattern = new(@"[0-9]+");
             Regex regexPunctiationPattern = new(@"[!?',.:;]");
+            Regex regexDoublePunctiationPattern = new(@"[!?',.:;][!?',.:;]+");
             Regex regexPeriodsPattern = new(@"[!.?]");
             Regex regexPattern = new(@"");
-            Regex regexIllegalPattern = new(@"[!?',.:;!#$%&'()*+,\-./:;<=>?@[^_`{|}][!?',.:;!#$%&'()*+,\-./:;<=>?@[^_`{|}]+");
+            Regex regexIllegalPattern = new(@"[#$%&'()*+\/<=>?@[^_`{|}][#$%&'()*+\/<=>?@[^_`{|}]*");
             int index = 0;
             foreach (string item in str.Split(" "))
             {
-                if (index == 0 && regexPunctiationPattern.IsMatch(item))
+                if (regexIllegalPattern.IsMatch(item))
+                    return false;
+                else if (index == 0 && regexPunctiationPattern.IsMatch(item) && !regexWordPattern.IsMatch(item))
                     return false;
                 else if (!(regexPattern.IsMatch(item) || regexWordPattern.IsMatch(item) || regexPunctiationPattern.IsMatch(item) || regexNumbersPattern.IsMatch(item)))
                     return false;
-                else if (regexIllegalPattern.IsMatch(item))
-                    return false;
-                else if (item != "")
+                else if (item != "" && item != "\t")
                     index++;
             }
-            if (regexPeriodsPattern.IsMatch(str))
+            if (regexPeriodsPattern.IsMatch(str) && !regexDoublePunctiationPattern.IsMatch(str))
                 return true;
             return false;
         }
     }
 }
-
-
-
-
